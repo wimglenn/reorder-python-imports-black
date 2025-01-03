@@ -9,9 +9,9 @@ import itertools
 import os
 import re
 import sys
-from typing import Generator
+from collections.abc import Generator
+from collections.abc import Sequence
 from typing import NamedTuple
-from typing import Sequence
 
 from classify_imports import Import
 from classify_imports import import_obj_from_str
@@ -58,7 +58,7 @@ TOKENIZE: tuple[tuple[Tok, re.Pattern[str]], ...] = (
 )
 
 
-def _tokenize(s: str) -> Generator[tuple[Tok, str], None, None]:
+def _tokenize(s: str) -> Generator[tuple[Tok, str]]:
     pos = 0
     while True:
         for tp, reg in TOKENIZE:
@@ -268,7 +268,7 @@ def replace_imports(
     return ret
 
 
-def _module_to_base_modules(s: str) -> Generator[str, None, None]:
+def _module_to_base_modules(s: str) -> Generator[str]:
     """return all module names that would be imported due to this
     import-import
     """
@@ -419,9 +419,9 @@ REMOVALS[(3, 7)].add('from __future__ import generator_stop')
 
 # GENERATED VIA generate-typing-rewrite-info
 # Using:
-#     flake8-typing-imports==1.15.0
+#     flake8-typing-imports==1.16.0
 #     mypy-extensions==1.0.0
-#     typing-extensions==4.8.0
+#     typing-extensions==4.12.2
 REPLACES[(3, 6)].update((
     'typing_extensions=typing:AbstractSet',
     'typing_extensions=typing:AnyStr',
@@ -433,12 +433,10 @@ REPLACES[(3, 6)].update((
     'typing_extensions=typing:ClassVar',
     'typing_extensions=typing:Collection',
     'typing_extensions=typing:Container',
-    'typing_extensions=typing:ContextManager',
     'typing_extensions=typing:Coroutine',
     'typing_extensions=typing:DefaultDict',
     'typing_extensions=typing:Dict',
     'typing_extensions=typing:FrozenSet',
-    'typing_extensions=typing:Generator',
     'typing_extensions=typing:Generic',
     'typing_extensions=typing:Hashable',
     'typing_extensions=typing:IO',
@@ -472,8 +470,6 @@ REPLACES[(3, 6)].update((
 ))
 REPLACES[(3, 7)].update((
     'mypy_extensions=typing:NoReturn',
-    'typing_extensions=typing:AsyncContextManager',
-    'typing_extensions=typing:AsyncGenerator',
     'typing_extensions=typing:ChainMap',
     'typing_extensions=typing:Counter',
     'typing_extensions=typing:Deque',
@@ -484,8 +480,6 @@ REPLACES[(3, 8)].update((
     'mypy_extensions=typing:TypedDict',
     'typing_extensions=typing:Final',
     'typing_extensions=typing:OrderedDict',
-    'typing_extensions=typing:SupportsIndex',
-    'typing_extensions=typing:runtime_checkable',
 ))
 REPLACES[(3, 9)].update((
     'typing_extensions=typing:Annotated',
@@ -520,18 +514,34 @@ REPLACES[(3, 11)].update((
 ))
 REPLACES[(3, 12)].update((
     'typing_extensions=typing:NamedTuple',
-    'typing_extensions=typing:Protocol',
     'typing_extensions=typing:SupportsAbs',
     'typing_extensions=typing:SupportsBytes',
     'typing_extensions=typing:SupportsComplex',
     'typing_extensions=typing:SupportsFloat',
+    'typing_extensions=typing:SupportsIndex',
     'typing_extensions=typing:SupportsInt',
     'typing_extensions=typing:SupportsRound',
     'typing_extensions=typing:TypeAliasType',
-    'typing_extensions=typing:TypedDict',
     'typing_extensions=typing:Unpack',
     'typing_extensions=typing:dataclass_transform',
     'typing_extensions=typing:override',
+))
+REPLACES[(3, 13)].update((
+    'typing_extensions=typing:AsyncContextManager',
+    'typing_extensions=typing:AsyncGenerator',
+    'typing_extensions=typing:ContextManager',
+    'typing_extensions=typing:Generator',
+    'typing_extensions=typing:NoDefault',
+    'typing_extensions=typing:ParamSpec',
+    'typing_extensions=typing:Protocol',
+    'typing_extensions=typing:ReadOnly',
+    'typing_extensions=typing:TypeIs',
+    'typing_extensions=typing:TypeVar',
+    'typing_extensions=typing:TypeVarTuple',
+    'typing_extensions=typing:TypedDict',
+    'typing_extensions=typing:get_protocol_members',
+    'typing_extensions=typing:is_protocol',
+    'typing_extensions=typing:runtime_checkable',
 ))
 # END GENERATED
 
